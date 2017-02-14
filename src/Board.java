@@ -27,7 +27,8 @@ public class Board {
     }
 
     public void damageSquare(int amount, int relativeLocation, int element){
-        squares[playerLocation + relativeLocation].damageSquare(amount, element);
+        if (playerLocation + relativeLocation > -1 && playerLocation + relativeLocation < BOARDSIZE)
+            squares[playerLocation + relativeLocation].damageSquare(amount, element);
 }
 
     public void playerMove(){
@@ -61,8 +62,8 @@ public class Board {
     }
 
     public void enemyTurn(){
-        for(int i = 0; i<BOARDSIZE; i++) {
-            if (squares[i].getOccupiedType() > 1){
+        for(int i = 1; i<BOARDSIZE; i++) {
+            if (squares[i].getOccupiedType() > 1&& squares[i-1].getOccupiedType()==0){
                 try {
                     squares[i].moveContents(squares[i - 1]);
                 }

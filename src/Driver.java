@@ -63,7 +63,7 @@ public class Driver
                     // the user pressed the close button
                     window.close( );
                 }
-                if(event.type == Event.Type.MOUSE_BUTTON_PRESSED && playersTurn==true){
+                if(event.type == Event.Type.MOUSE_BUTTON_PRESSED && playersTurn){
                     for(int i = 0; i < buttons.size(); i++){
                         if(Mouse.getPosition(window).x > buttons.get(i).x && Mouse.getPosition(window).x < buttons.get(i).x+buttons.get(i).getWidth() && Mouse.getPosition(window).y > buttons.get(i).y && Mouse.getPosition(window).y < buttons.get(i).y+buttons.get(i).getHeight()) {
                             switch (buttons.get(i).getButtonID()){
@@ -106,21 +106,27 @@ public class Driver
     }
 
     private static void cardEffect(int cardID, Board gameBoard){
+        int blank = 0;
         switch (cardID){
             case 0:
                 gameBoard.playerMove(-1);
+                break;
             case 1:
                 gameBoard.damageSquare(3,1,0);
+                break;
             case 7:
-                    gameBoard.damageSquare(2, 1, 1);
-                    gameBoard.damageSquare(2, 2, 1);
-                    gameBoard.damageSquare(2, 3, 1);
-                    gameBoard.damageSquare(2, 4, 1);
-                    gameBoard.damageSquare(2, 5, 1);
+                gameBoard.damageSquare(2, 1, 1);
+                gameBoard.damageSquare(2, 2, 1);
+                gameBoard.damageSquare(2, 3, 1);
+                gameBoard.damageSquare(2, 4, 1);
+                gameBoard.damageSquare(2, 5, 1);
+                break;
             case 15:
                 gameBoard.playerMove(3);
+                break;
             default:
                 gameBoard.damageSquare(1,1,0);
+                break;
 
         }
     }

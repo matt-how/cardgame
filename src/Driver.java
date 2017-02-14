@@ -101,6 +101,7 @@ public class Driver
     }
 
     public static void main (String args[ ]) {
+
         run();
     }
 
@@ -108,8 +109,18 @@ public class Driver
         switch (cardID){
             case 0:
                 gameBoard.playerMove(-1);
+            case 1:
+                gameBoard.damageSquare(3,1,0);
+            case 7:
+                    gameBoard.damageSquare(2, 1, 1);
+                    gameBoard.damageSquare(2, 2, 1);
+                    gameBoard.damageSquare(2, 3, 1);
+                    gameBoard.damageSquare(2, 4, 1);
+                    gameBoard.damageSquare(2, 5, 1);
+            case 15:
+                gameBoard.playerMove(3);
             default:
-                gameBoard.damageSquare(10,1);
+                gameBoard.damageSquare(1,1,0);
 
         }
     }

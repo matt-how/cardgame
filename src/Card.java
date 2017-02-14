@@ -17,7 +17,7 @@ public class Card extends SprActor
         // Load image/ texture
         //
         try {
-            imgTexture.loadFromFile(Paths.get("card"+id+".png"));
+            imgTexture.loadFromFile(Paths.get("cards/card"+id+".png"));
         } catch (IOException ex) {
             ex.printStackTrace( );
             System.out.println("error loading texture");

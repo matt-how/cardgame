@@ -6,7 +6,7 @@ import org.jsfml.graphics.RenderWindow;
  */
 public class Board {
 
-    public static int MOVESPEED = 2;
+    public static int MOVESPEED = 1;
     public static int BOARDSIZE = 14;
 
     int playerLocation = 0;
@@ -33,14 +33,10 @@ public class Board {
 
     public void playerMove(){
         if ((playerLocation + MOVESPEED)>=BOARDSIZE) {
-            squares[playerLocation].moveContents(squares[BOARDSIZE-1]);
-            playerLocation = BOARDSIZE - 1;
+            /*squares[playerLocation].moveContents(squares[BOARDSIZE-1]);
+            playerLocation = BOARDSIZE - 1;*/ //unnecesary in movespeed of 1 and moving a square to itself breaks the square
         }
-        else if ((playerLocation + MOVESPEED)< 0) {
-            squares[playerLocation].moveContents(squares[0]);
-            playerLocation = 0;
-        }
-        else{
+        else if(squares[playerLocation+MOVESPEED].getOccupiedType() == 0){
             squares[playerLocation].moveContents(squares[playerLocation+MOVESPEED]);
             playerLocation+=MOVESPEED;
         }

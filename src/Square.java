@@ -72,6 +72,8 @@ public class Square extends SprActor{
     }
 
     public void moveContents(Square destination){
+        if (destination!=this){
+
             destination.hp = hp;
             destination.occupiedType = occupiedType;
             destination.weakness = weakness;
@@ -80,6 +82,7 @@ public class Square extends SprActor{
             occupiedType = 0;
             hp = 0;
             updateTexture();
+        }
     }
 
     public int getOccupiedType(){

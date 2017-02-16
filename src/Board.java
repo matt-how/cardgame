@@ -11,12 +11,12 @@ public class Board {
     int playerLocation;
     Square[] squares = new Square[BOARDSIZE];
     public Board(){
-        squares[0] = new Square(20,250,1,50,0,Character.elementalType.NONE);
+        squares[0] = new Square(20,250,1,10,0,Character.elementalType.NONE);
         for(int i = 1; i<BOARDSIZE; i++) {
             squares[i] = new Square((i*70)+20,250,0,0, i,Character.elementalType.NONE);
         }
-        squares[11] = new Square(11*70+20,250,2,4,11,Character.elementalType.FIRE);
-        squares[13] = new Square(13*70+20,250,2,4,13,Character.elementalType.ELECTRIC);
+        squares[11] = new Square(11*70+20,250,2,4,11,Character.elementalType.EARTH);
+        squares[13] = new Square(13*70+20,250,2,4,13,Character.elementalType.EARTH);
         playerLocation=0;
     }
 
@@ -24,6 +24,25 @@ public class Board {
         for(int i = 0; i<BOARDSIZE; i++) {
             squares[i].draw(w);
         }
+    }
+
+    public void castBolt(int amount, Character.elementalType element){
+        int i = playerLocation+1;
+        while (i < BOARDSIZE){
+            if (squares[i].isOccupied){
+                squares[i].damageSquare(amount,element);
+                return;
+            }
+            i++;
+        }
+    }
+
+    public void healCharacter(Character character, int amount){
+        character.heal(amount);
+    }
+
+    public void healCharacter(int relativeSquareNumber,int amount){
+        squares[playerLocation+relativeSquareNumber].occupiedCharacter.heal(amount);
     }
 
     public void damageSquare(int amount, int relativeLocation, Character.elementalType element){

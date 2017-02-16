@@ -19,6 +19,11 @@ public class Character {
         return (enemyType);
     }
 
+    public void heal(int amount){
+        hp += amount;
+        if (hp>maxHP)
+            hp=maxHP;
+    }
 
     public void damage(int damage,elementalType element, Square currentSquare){
         if (element == elementalType.NONE) {

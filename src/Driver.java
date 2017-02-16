@@ -120,6 +120,13 @@ public class Driver
                 gameBoard.damageSquare(2, 4, Character.elementalType.FIRE);
                 gameBoard.damageSquare(2, 5, Character.elementalType.FIRE);
                 break;
+            case 8:
+                gameBoard.castBolt(2,Character.elementalType.FIRE);
+                break;
+            case 11:
+                gameBoard.castBolt(2,Character.elementalType.WATER);
+                gameBoard.healCharacter(0,2);
+                break;
             case 15:
                 gameBoard.playerMove(3);
                 break;

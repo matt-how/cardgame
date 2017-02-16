@@ -8,85 +8,83 @@ import java.nio.file.Paths;
  * Created by Matt on 19/01/2017.
  */
 public class Square extends SprActor{
-    public final int NONE = 0;
-    public final int FIRE = 1;
-    public final int WATER = 2;
-    public final int ELECTRIC = 3;
-    public final int EARTH = 4;
-    int squareNumber;
-    int occupiedType = 0;
-    int hp;
-    int weakness;
 
-    public Square(int x, int y, int type, int hp, int squareNumber, int weakness){
-        occupiedType = type;
+    int squareNumber;
+    boolean isOccupied;
+    Character occupiedCharacter;
+
+    public Square(int x, int y, int type, int hp, int squareNumber, Character.elementalType elementType){
+        isOccupied=false;
+        occupiedCharacter = new Character(0,0,Character.elementalType.NONE);
+        if (type > 0) {
+            isOccupied = true;
+            occupiedCharacter = new Character(hp,type,elementType);
+        }
         this.x = x;
         this.y = y;
-        this.hp = hp;
-        this.weakness = weakness;
         this.squareNumber = squareNumber;
         obj = img;
 
         //
         // Load image/ texture
         //
-        try {
-            imgTexture.loadFromFile(Paths.get("square"+occupiedType+".png"));
-        } catch (IOException ex) {
-            ex.printStackTrace( );
-            System.out.println("error loading texture");
+        if (!isOccupied) {
+            try {
+                imgTexture.loadFromFile(Paths.get("square0.png"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                System.out.println("error loading texture");
+            }
+        }
+        else{
+            try {
+                imgTexture.loadFromFile(Paths.get("square"+occupiedCharacter.getEnemyType()+".png"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                System.out.println("error loading texture");
+            }
         }
         img = new Sprite(imgTexture);
         img.setPosition(new Vector2f(x, y));
     }
 
     public void updateTexture(){
-        try {
-            imgTexture.loadFromFile(Paths.get("square"+occupiedType+".png"));
-        } catch (IOException ex) {
-            ex.printStackTrace( );
-            System.out.println("error loading texture");
+        if (!isOccupied) {
+            try {
+                imgTexture.loadFromFile(Paths.get("square0.png"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                System.out.println("error loading texture");
+            }
+        }
+        else{
+            try {
+                imgTexture.loadFromFile(Paths.get("square"+occupiedCharacter.getEnemyType()+".png"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                System.out.println("error loading texture");
+            }
         }
         img.setTexture(imgTexture);
     }
 
-    public void damageSquare(int damage,int element){
-        if (element == 0) {
-            hp -= damage;
-        }
-        else if (element == weakness) {
-            hp -= (1.5 * damage);
-        }
-        else if (element == (weakness%4)+1) {
-            hp -= (0.5 * damage);
-        }
-        else {
-            hp -= damage;
-        }
+    public void removeCharacter(){
+        isOccupied = false;
+        occupiedCharacter = new Character(0,0,Character.elementalType.NONE);
+        updateTexture();
+    }
 
-        if(hp<=0){
-            hp=0;
-            occupiedType=0;
-            updateTexture();
-        }
+    public void damageSquare(int damage,Character.elementalType element){
+        occupiedCharacter.damage(damage,element,this);
     }
 
     public void moveContents(Square destination){
         if (destination!=this){
-
-            destination.hp = hp;
-            destination.occupiedType = occupiedType;
-            destination.weakness = weakness;
-            weakness = 0;
+            destination.occupiedCharacter = this.occupiedCharacter;
+            destination.isOccupied=true;
             destination.updateTexture();
-            occupiedType = 0;
-            hp = 0;
-            updateTexture();
+            this.removeCharacter();
         }
-    }
-
-    public int getOccupiedType(){
-        return(occupiedType);
     }
 
     void draw(RenderWindow w) {

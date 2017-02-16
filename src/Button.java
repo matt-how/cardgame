@@ -26,5 +26,4 @@ public class Button extends SprActor{
         return  (buttonID);
     }
 
-
 }

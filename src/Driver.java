@@ -91,9 +91,9 @@ public class Driver
             //enemy turn goes here
             if(!playersTurn){
                 gameBoard.enemyTurn();
+                gameBoard.reduceTimers();
+                playersTurn = true;
             }
-            playersTurn = true;
-            //
 
             // Update the display with any changes
             window.display( );
@@ -113,6 +113,15 @@ public class Driver
             case 1:
                 gameBoard.damageSquare(3,1,Character.elementalType.NONE);
                 break;
+            case 3:
+                gameBoard.setElementalBoosts(3, Character.elementalType.EARTH, 2);
+                break;
+            case 4:
+                gameBoard.setElementalBoosts(3, Character.elementalType.ELECTRIC, 2);
+                break;
+            case 6:
+                gameBoard.setElementalBoosts(3, Character.elementalType.FIRE, 2);
+                break;
             case 7:
                 gameBoard.damageSquare(2, 1, Character.elementalType.FIRE);
                 gameBoard.damageSquare(2, 2, Character.elementalType.FIRE);
@@ -129,6 +138,9 @@ public class Driver
                 break;
             case 15:
                 gameBoard.playerMove(3);
+                break;
+            case 19:
+                gameBoard.setElementalBoosts(3, Character.elementalType.WATER, 2);
                 break;
             default:
                 gameBoard.damageSquare(1,1,Character.elementalType.NONE);

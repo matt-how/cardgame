@@ -26,6 +26,23 @@ public class Board {
         }
     }
 
+    public void reduceTimers(){
+        for (int i = 0; i < BOARDSIZE; i++){
+            if ( squares[i].isOccupied){
+                for(int j = 4;j>=0;j--){
+                    squares[i].occupiedCharacter.elementalBoostsTimers[j]--;
+                }
+            }
+        }
+    }
+
+    public void setElementalBoosts(int amount, Character.elementalType element, int noOfTurns){
+        squares[playerLocation].occupiedCharacter.elementalBoosts[element.ordinal()] = amount;
+        squares[playerLocation].occupiedCharacter.elementalBoostsTimers[element.ordinal()] = noOfTurns;
+    }
+
+
+
     public void castBolt(int amount, Character.elementalType element){
         int i = playerLocation+1;
         while (i < BOARDSIZE){
@@ -37,15 +54,14 @@ public class Board {
         }
     }
 
-    public void healCharacter(Character character, int amount){
-        character.heal(amount);
-    }
-
     public void healCharacter(int relativeSquareNumber,int amount){
         squares[playerLocation+relativeSquareNumber].occupiedCharacter.heal(amount);
     }
 
     public void damageSquare(int amount, int relativeLocation, Character.elementalType element){
+        if(squares[playerLocation].occupiedCharacter.elementalBoostsTimers[element.ordinal()]>0){
+            amount+=squares[playerLocation].occupiedCharacter.elementalBoosts[element.ordinal()];
+        }
         if (playerLocation + relativeLocation > -1 && playerLocation + relativeLocation < BOARDSIZE)
             squares[playerLocation + relativeLocation].damageSquare(amount, element);
     }

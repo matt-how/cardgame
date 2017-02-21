@@ -23,7 +23,7 @@ public class Card extends SprActor
             System.out.println("error loading texture");
         }
         img = new Sprite(imgTexture);
-        img.scale((float)0.5, (float)0.5);
+        img.scale((float)0.55, (float)0.55);
     }
 
     public int getID(){

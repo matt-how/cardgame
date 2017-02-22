@@ -94,14 +94,15 @@ public class Board {
 
     public void enemyTurn(){
         for(int i = 1; i<BOARDSIZE; i++) {
-            if ((squares[i].isOccupied) && (!squares[i-1].isOccupied)&&squares[i].occupiedCharacter.enemyType>1){
-                try {
+            if ((squares[i].isOccupied) &&squares[i].occupiedCharacter.enemyType>1){
+                if(squares[i-1].isOccupied&&squares[i-1].occupiedCharacter.getEnemyType()==1){
+                    damageSquare(2,0,squares[i].occupiedCharacter.ourElement);
+                }
+                else if(!squares[i-1].isOccupied){
                     squares[i].moveContents(squares[i - 1]);
                 }
-                catch (ArrayIndexOutOfBoundsException e){
-
-                }
             }
+
         }
     }
 

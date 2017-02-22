@@ -32,6 +32,7 @@ public class Board {
                 for(int j = 4;j>=0;j--){
                     squares[i].occupiedCharacter.elementalBoostsTimers[j]--;
                 }
+                squares[i].occupiedCharacter.stunned=false;
             }
         }
     }
@@ -56,6 +57,10 @@ public class Board {
 
     public void healCharacter(int relativeSquareNumber,int amount){
         squares[playerLocation+relativeSquareNumber].occupiedCharacter.heal(amount);
+    }
+
+    public void stunCharacter(int relativeSquareNumber){
+        squares[playerLocation+relativeSquareNumber].occupiedCharacter.stunned=true;
     }
 
     public void damageSquare(int amount, int relativeLocation, Character.elementalType element){
@@ -94,7 +99,7 @@ public class Board {
 
     public void enemyTurn(){
         for(int i = 1; i<BOARDSIZE; i++) {
-            if ((squares[i].isOccupied) &&squares[i].occupiedCharacter.enemyType>1){
+            if ((squares[i].isOccupied) &&squares[i].occupiedCharacter.enemyType>1&&!squares[i].occupiedCharacter.stunned){
                 if(squares[i-1].isOccupied&&squares[i-1].occupiedCharacter.getEnemyType()==1){
                     damageSquare(2,0,squares[i].occupiedCharacter.ourElement);
                 }

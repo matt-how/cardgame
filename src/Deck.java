@@ -25,7 +25,7 @@ public class Deck {
     public void setupTestDeck()
     {
         for(int i = 0; i < DECKSIZE; i++){
-            cards.add(new Card((i%17)+2));
+            cards.add(new Card((i%19)+1));
         }
     }
 

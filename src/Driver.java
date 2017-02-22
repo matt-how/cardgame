@@ -113,6 +113,10 @@ public class Driver
             case 1:
                 gameBoard.damageSquare(3,1,Character.elementalType.NONE);
                 break;
+            case 2:
+                gameBoard.damageSquare(1,1, Character.elementalType.WATER);
+                gameBoard.stunCharacter(1);
+                break;
             case 3:
                 gameBoard.setElementalBoosts(3, Character.elementalType.EARTH, 2);
                 break;
@@ -135,6 +139,10 @@ public class Driver
             case 11:
                 gameBoard.castBolt(2,Character.elementalType.WATER);
                 gameBoard.healCharacter(0,2);
+                break;
+            case 13:
+                gameBoard.damageSquare(1,1, Character.elementalType.ELECTRIC);
+                gameBoard.stunCharacter(1);
                 break;
             case 15:
                 gameBoard.playerMove(3);

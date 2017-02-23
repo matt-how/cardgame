@@ -44,11 +44,16 @@ public class Board {
 
 
 
-    public void castBolt(int amount, Character.elementalType element){
+    public void castBolt(int amount, Character.elementalType element, boolean stunFlag, boolean poisonFlag){
         int i = playerLocation+1;
         while (i < BOARDSIZE){
             if (squares[i].isOccupied){
-                squares[i].damageSquare(amount,element);
+                if(poisonFlag)
+                    poisonSquare(i,amount);
+                else
+                    damageSquare(amount,i-playerLocation,element);
+                if(stunFlag)
+                    stunCharacter(i-playerLocation);
                 return;
             }
             i++;
@@ -61,6 +66,10 @@ public class Board {
 
     public void stunCharacter(int relativeSquareNumber){
         squares[playerLocation+relativeSquareNumber].occupiedCharacter.stunned=true;
+    }
+
+    public void poisonSquare(int squareNumber, int amount){
+        squares[squareNumber].occupiedCharacter.poisonStacks+=amount;
     }
 
     public void damageSquare(int amount, int relativeLocation, Character.elementalType element){
@@ -99,14 +108,18 @@ public class Board {
 
     public void enemyTurn(){
         for(int i = 1; i<BOARDSIZE; i++) {
-            if ((squares[i].isOccupied) &&squares[i].occupiedCharacter.enemyType>1&&!squares[i].occupiedCharacter.stunned){
-                if(squares[i-1].isOccupied&&squares[i-1].occupiedCharacter.getEnemyType()==1){
-                    damageSquare(2,0,squares[i].occupiedCharacter.ourElement);
+            if ((squares[i].isOccupied) &&squares[i].occupiedCharacter.enemyType>1){
+                if(!squares[i].occupiedCharacter.stunned){
+                    if(squares[i-1].isOccupied&&squares[i-1].occupiedCharacter.getEnemyType()==1){
+                        damageSquare(2,0,squares[i].occupiedCharacter.ourElement);
+                    }
+                    else if(!squares[i-1].isOccupied){
+                        squares[i].moveContents(squares[i - 1]);
+                    }
                 }
-                else if(!squares[i-1].isOccupied){
-                    squares[i].moveContents(squares[i - 1]);
-                }
+                damageSquare(squares[i].occupiedCharacter.poisonStacks,i-playerLocation, Character.elementalType.EARTH);
             }
+
 
         }
     }

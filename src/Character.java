@@ -9,6 +9,7 @@ public class Character {
     int enemyType = 0;
     int[] elementalBoosts = new int[5];
     int[] elementalBoostsTimers = new int[5];
+    int poisonStacks = 0;
     boolean stunned = false;
 
     public Character(int hp, int enemyType, elementalType type){

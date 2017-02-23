@@ -25,6 +25,14 @@ public class Character {
     public int getEnemyType(){
         return (enemyType);
     }
+	
+	public int getHP(){
+		return hp;
+	}
+	
+	public int getMaxHP(){
+		return maxHP;
+	}
 
     public void heal(int amount){
         hp += amount;
@@ -44,10 +52,10 @@ public class Character {
         }
         else {
             hp -= damage;
-        }
+        }		
 
         if(hp<=0){
             currentSquare.removeCharacter();
         }
-    }
+    }		
 }

@@ -12,6 +12,7 @@ public class Square extends SprActor{
     int squareNumber;
     boolean isOccupied;
     Character occupiedCharacter;
+	HealthUI healthbar;
 
     public Square(int x, int y, int type, int hp, int squareNumber, Character.elementalType elementType){
         isOccupied=false;
@@ -43,6 +44,9 @@ public class Square extends SprActor{
                 ex.printStackTrace();
                 System.out.println("error loading texture");
             }
+		
+			healthbar = new HealthUI(occupiedCharacter.getHP(), occupiedCharacter.getMaxHP(), x, y);
+		
         }
         img = new Sprite(imgTexture);
         img.setPosition(new Vector2f(x, y));
@@ -64,6 +68,7 @@ public class Square extends SprActor{
                 ex.printStackTrace();
                 System.out.println("error loading texture");
             }
+			healthbar = new HealthUI(occupiedCharacter.getHP(), occupiedCharacter.getMaxHP(), x, y);
         }
         img.setTexture(imgTexture);
     }
@@ -76,6 +81,7 @@ public class Square extends SprActor{
 
     public void damageSquare(int damage,Character.elementalType element){
         occupiedCharacter.damage(damage,element,this);
+		healthbar = new HealthUI(occupiedCharacter.getHP(), occupiedCharacter.getMaxHP(), x, y);
     }
 
     public void moveContents(Square destination){
@@ -89,6 +95,9 @@ public class Square extends SprActor{
 
     void draw(RenderWindow w) {
         w.draw(img);
+		if (isOccupied){
+				healthbar.draw(w);
+		}
     }
 
 }

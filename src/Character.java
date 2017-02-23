@@ -10,7 +10,7 @@ public class Character {
     int[] elementalBoosts = new int[5];
     int[] elementalBoostsTimers = new int[5];
     int poisonStacks = 0;
-    boolean stunned = false;
+    int stunnedTimer = 0;
 
     public Character(int hp, int enemyType, elementalType type){
         this.hp = hp;

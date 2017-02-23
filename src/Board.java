@@ -32,7 +32,7 @@ public class Board {
                 for(int j = 4;j>=0;j--){
                     squares[i].occupiedCharacter.elementalBoostsTimers[j]--;
                 }
-                squares[i].occupiedCharacter.stunned=false;
+                squares[i].occupiedCharacter.stunnedTimer-=1;
             }
         }
     }
@@ -42,18 +42,23 @@ public class Board {
         squares[playerLocation].occupiedCharacter.elementalBoostsTimers[element.ordinal()] = noOfTurns;
     }
 
+    public void setTrap(int relativeLocation){
+        if(!squares[playerLocation+relativeLocation].isOccupied){
+            squares[playerLocation+relativeLocation]=new Square(squares[playerLocation+relativeLocation].x,250,5,10,relativeLocation+playerLocation, Character.elementalType.EARTH);
+        }
+    }
 
 
     public void castBolt(int amount, Character.elementalType element, boolean stunFlag, boolean poisonFlag){
         int i = playerLocation+1;
         while (i < BOARDSIZE){
-            if (squares[i].isOccupied){
+            if (squares[i].isOccupied&&squares[i].occupiedCharacter.enemyType<5){
                 if(poisonFlag)
                     poisonSquare(i,amount);
                 else
                     damageSquare(amount,i-playerLocation,element);
                 if(stunFlag)
-                    stunCharacter(i-playerLocation);
+                    stunCharacter(i-playerLocation,1);
                 return;
             }
             i++;
@@ -62,10 +67,11 @@ public class Board {
 
     public void healCharacter(int relativeSquareNumber,int amount){
         squares[playerLocation+relativeSquareNumber].occupiedCharacter.heal(amount);
+        squares[playerLocation+relativeSquareNumber].updateTexture();
     }
 
-    public void stunCharacter(int relativeSquareNumber){
-        squares[playerLocation+relativeSquareNumber].occupiedCharacter.stunned=true;
+    public void stunCharacter(int relativeSquareNumber, int amount){
+        squares[playerLocation+relativeSquareNumber].occupiedCharacter.stunnedTimer = amount;
     }
 
     public void poisonSquare(int squareNumber, int amount){
@@ -92,6 +98,7 @@ public class Board {
     }
 
     public void playerMove(int distance){
+        int i;
         if ((playerLocation + distance)>=BOARDSIZE) {
             squares[playerLocation].moveContents(squares[BOARDSIZE-1]);
             playerLocation = BOARDSIZE - 1;
@@ -100,18 +107,32 @@ public class Board {
             squares[playerLocation].moveContents(squares[0]);
             playerLocation = 0;
         }
-        else if(!squares[playerLocation+distance].isOccupied){
-            squares[playerLocation].moveContents(squares[playerLocation+distance]);
-            playerLocation+=distance;
+        else{
+            for(i = 1; i <= distance;i++){
+                if(squares[playerLocation+i].isOccupied)
+                    break;
+            }
+            squares[playerLocation].moveContents(squares[playerLocation+i-1]);
+            playerLocation+=i-1;
         }
     }
 
     public void enemyTurn(){
         for(int i = 1; i<BOARDSIZE; i++) {
-            if ((squares[i].isOccupied) &&squares[i].occupiedCharacter.enemyType>1){
-                if(!squares[i].occupiedCharacter.stunned){
-                    if(squares[i-1].isOccupied&&squares[i-1].occupiedCharacter.getEnemyType()==1){
-                        damageSquare(2,0,squares[i].occupiedCharacter.ourElement);
+            if ((squares[i].isOccupied) &&squares[i].occupiedCharacter.enemyType>1&&squares[i].occupiedCharacter.enemyType<5){
+                if(squares[i].occupiedCharacter.stunnedTimer<=0){
+                    if(squares[i-1].isOccupied){
+                        switch (squares[i-1].occupiedCharacter.getEnemyType()){
+                            case 1:
+                                damageSquare(2,0,squares[i].occupiedCharacter.ourElement);
+                                break;
+                            case 5:
+                                poisonSquare(i,1);
+                                stunCharacter(i-playerLocation,2);
+                                squares[i].moveContents(squares[i-1]);
+                                break;
+                        }
+
                     }
                     else if(!squares[i-1].isOccupied){
                         squares[i].moveContents(squares[i - 1]);

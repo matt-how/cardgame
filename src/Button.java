@@ -1,6 +1,7 @@
 import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Paths;
 
 /**
@@ -22,8 +23,18 @@ public class Button extends SprActor{
         this.buttonID = buttonID;
     }
 
+    public void changeTexture(String filename){
+        try {
+            imgTexture.loadFromFile(FileSystems.getDefault().getPath(filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading texture");
+        }
+        img.setTexture(imgTexture);
+        img.setPosition(new Vector2f(x, y));
+    }
+
     public int getButtonID(){
         return  (buttonID);
     }
-
 }

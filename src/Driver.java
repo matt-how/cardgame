@@ -214,13 +214,16 @@ public class Driver
                                 case 0: {
                                     menuWindow.close();
                                     run();
+                                    break;
                                 }
                                 case 1: {
                                     menuWindow.close();
                                     optionsMenu();
+                                    break;
                                 }
                                 case 2: {
                                     menuWindow.close();
+                                    break;
                                 }
                             }
                         }

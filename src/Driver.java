@@ -42,6 +42,17 @@ public class Driver
             hand.get(i).setY(screenHeight - (int)hand.get(i).getHeight());
         }
 
+        Texture imgTexture = new Texture();
+        imgTexture.setSmooth(true);
+        try {
+            imgTexture.loadFromFile(FileSystems.getDefault().getPath("MenuWithCards", "MenuBackground.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading texture");
+        }
+        // Sets menu background texture as a sprite to be displayed on screen
+        Sprite img = new Sprite(imgTexture);
+        img.setPosition(new Vector2f(0, 0));
 
         //
         // Main loop
@@ -49,6 +60,7 @@ public class Driver
         while (window.isOpen( )) {
             // Clear the screen
             window.clear(Color.RED);
+            window.draw(img);
             //place updates between here and display
 
             gameBoard.draw(window);

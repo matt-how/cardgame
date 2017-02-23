@@ -31,7 +31,7 @@ public class Square extends SprActor{
         //
         if (!isOccupied) {
             try {
-                imgTexture.loadFromFile(Paths.get("../square0.png"));
+                imgTexture.loadFromFile(Paths.get("square0.png"));
             } catch (IOException ex) {
                 ex.printStackTrace();
                 System.out.println("error loading texture");
@@ -39,7 +39,7 @@ public class Square extends SprActor{
         }
         else{
             try {
-                imgTexture.loadFromFile(Paths.get("../square"+occupiedCharacter.getEnemyType()+".png"));
+                imgTexture.loadFromFile(Paths.get("square"+occupiedCharacter.getEnemyType()+".png"));
             } catch (IOException ex) {
                 ex.printStackTrace();
                 System.out.println("error loading texture");
@@ -55,7 +55,7 @@ public class Square extends SprActor{
     public void updateTexture(){
         if (!isOccupied) {
             try {
-                imgTexture.loadFromFile(Paths.get("../square0.png"));
+                imgTexture.loadFromFile(Paths.get("square0.png"));
             } catch (IOException ex) {
                 ex.printStackTrace();
                 System.out.println("error loading texture");
@@ -63,7 +63,7 @@ public class Square extends SprActor{
         }
         else{
             try {
-                imgTexture.loadFromFile(Paths.get("../square"+occupiedCharacter.getEnemyType()+".png"));
+                imgTexture.loadFromFile(Paths.get("square"+occupiedCharacter.getEnemyType()+".png"));
             } catch (IOException ex) {
                 ex.printStackTrace();
                 System.out.println("error loading texture");

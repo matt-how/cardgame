@@ -14,9 +14,6 @@ public class HealthUI {
 	public HealthUI(int hp, int maxHP, int x, int y) {
 		
 		
-
-		System.out.println("hp=" + hp + " Max HP=" + maxHP);
-		
 		healthBar = new RectangleShape(new Vector2f((hp*5), 10));
 		healthBar.setFillColor(Color.GREEN);
 		healthBar.setPosition((x+5),(y-10));

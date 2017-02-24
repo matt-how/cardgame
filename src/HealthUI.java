@@ -1,8 +1,4 @@
-import org.jsfml.graphics.Color;
-import org.jsfml.graphics.RectangleShape;
-import org.jsfml.graphics.CircleShape;
-import org.jsfml.graphics.RenderWindow;
-import org.jsfml.graphics.RenderStates;
+import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -11,6 +7,7 @@ public class HealthUI {
 	
 	Character occupiedCharacter;
 	boolean elementNone = false;
+	int healthDif = 0;
 	
 	private RectangleShape healthBar;	
 	private RectangleShape healthBorder;
@@ -19,11 +16,15 @@ public class HealthUI {
 
 	public HealthUI(int hp, int maxHP, Character.elementalType ourElement, int x, int y) {
 
-		healthBar = new RectangleShape(new Vector2f((hp * 5), 10));
+		if(hp !=0) {
+			healthDif = 60 / maxHP;
+		}
+
+		healthBar = new RectangleShape(new Vector2f((hp*healthDif), 10));
 		healthBar.setFillColor(Color.GREEN);
 		healthBar.setPosition((x + 5), (y - 10));
 
-		healthBorder = new RectangleShape(new Vector2f((maxHP * 5), 10));
+		healthBorder = new RectangleShape(new Vector2f(60, 10));
 		healthBorder.setFillColor(Color.BLACK);
 		healthBorder.setPosition((x + 5), (y - 10));
 

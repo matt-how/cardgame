@@ -4,10 +4,13 @@ import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.RenderStates;
 import org.jsfml.system.Vector2f;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 public class HealthUI {
 	
 	Character occupiedCharacter;
+	boolean elementNone = false;
 	
 	private RectangleShape healthBar;	
 	private RectangleShape healthBorder;
@@ -15,8 +18,6 @@ public class HealthUI {
 	private CircleShape elementBorder;
 
 	public HealthUI(int hp, int maxHP, Character.elementalType ourElement, int x, int y) {
-
-		System.out.println(ourElement);
 
 		healthBar = new RectangleShape(new Vector2f((hp * 5), 10));
 		healthBar.setFillColor(Color.GREEN);
@@ -26,28 +27,30 @@ public class HealthUI {
 		healthBorder.setFillColor(Color.BLACK);
 		healthBorder.setPosition((x + 5), (y - 10));
 
-		elementType = new CircleShape(5);
-		elementType.setPosition((x + 5), (y - 25));
-		if (ourElement == Character.elementalType.FIRE) {
-			elementType.setFillColor(Color.RED);
-		} else if (ourElement == Character.elementalType.WATER) {
-			elementType.setFillColor(Color.BLUE);
-		} else if (ourElement == Character.elementalType.ELECTRIC) {
-			elementType.setFillColor(Color.YELLOW);
-		} else if (ourElement == Character.elementalType.EARTH) {
-			elementType.setFillColor(Color.GREEN);
-		}
+		if(ourElement == Character.elementalType.NONE) {
+			elementNone = true;
+		}else{
+			elementType = new CircleShape(10);
+			elementType.setPosition((x + 5), (y - 30));
 
-		elementBorder = new CircleShape(7);
-		elementBorder.setPosition((x + 3), (y - 27));
-		elementBorder.setFillColor(Color.BLACK);
+			Texture imgTexture = new Texture();
+
+			try {
+				imgTexture.loadFromFile(Paths.get("eType" + ourElement + ".png"));
+			}catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			elementType.setTexture((ConstTexture) imgTexture);
+		}
 	}
 
 	public void draw(RenderWindow window) {
 		window.draw(healthBorder,RenderStates.DEFAULT);
 		window.draw(healthBar,RenderStates.DEFAULT);
-		window.draw(elementBorder, RenderStates.DEFAULT);
-		window.draw(elementType, RenderStates.DEFAULT);
+//		window.draw(elementBorder, RenderStates.DEFAULT);
+		if(elementNone == false) {
+			window.draw(elementType, RenderStates.DEFAULT);
+		}
 	}
 		
 }

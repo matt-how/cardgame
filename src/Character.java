@@ -35,6 +35,10 @@ public class Character {
 		return maxHP;
 	}
 
+	public elementalType getElement() {
+	    return ourElement;
+	}
+
     public void heal(int amount){
         hp += amount;
         if (hp>maxHP)

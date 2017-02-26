@@ -23,7 +23,7 @@ public class Driver
         //
         RenderWindow window = new RenderWindow( );
         window.create(new VideoMode(screenWidth, screenHeight),"Card Quest", WindowStyle.DEFAULT);
-        window.setFramerateLimit(30); // 60FPS master-race
+        window.setFramerateLimit(framerate); // 60FPS master-race
         boolean playersTurn = true;
         ArrayList<Button> buttons = new ArrayList<Button>();
         Board gameBoard = new Board();
@@ -167,6 +167,9 @@ public class Driver
                 break;
             case 15:
                 gameBoard.playerMove(3);
+                break;
+            case 17:
+                gameBoard.setTrap(2);
                 break;
             case 19:
                 gameBoard.setElementalBoosts(3, Character.elementalType.WATER, 2);

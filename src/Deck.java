@@ -29,6 +29,11 @@ public class Deck {
         }
     }
 
+    public void addCard(Card i){
+        cards.add(i);
+    }
+
+
     public Card drawCard() {
         if(cards.size()==0){
             return(new Card(0));

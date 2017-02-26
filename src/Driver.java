@@ -32,21 +32,9 @@ public class Driver extends Audio
         boolean playersTurn = true;
         ArrayList<Button> buttons = new ArrayList<Button>();
         Board gameBoard = new Board();
-
-
-        Button moveButton = new Button("move.png",800,500,0);
-        buttons.add(moveButton);
-
         Deck deck = new Deck();
-        deck.shuffle();
-
         ArrayList<Card> hand = new ArrayList<Card>();
-        for(int i = 0; i<5;i++){
-            hand.add(deck.drawCard());
-            hand.get(i).setX(i*((int)hand.get(i).getWidth()+20));
-            hand.get(i).setY(screenHeight - (int)hand.get(i).getHeight());
-        }
-
+        Random rand = new Random();
         Texture imgTexture = new Texture();
         imgTexture.setSmooth(true);
         try {
@@ -58,6 +46,55 @@ public class Driver extends Audio
         // Sets menu background texture as a sprite to be displayed on screen
         Sprite img = new Sprite(imgTexture);
         img.setPosition(new Vector2f(0, 0));
+
+        //deck setup
+        boolean clicked;
+
+
+
+        for (int i=0;i<30;i++) {
+            clicked = false;
+            for (int j = 0; j < 3; j++) {
+                hand.add(new Card(rand.nextInt(19) + 1));
+                hand.get(j).setX(j * ((int) hand.get(j).getWidth() + 70)+(screenWidth/5));
+                hand.get(j).setY((screenHeight / 2)-((int) hand.get(j).getHeight()/2));
+            }
+            while (!clicked) {
+                window.clear();
+                window.draw(img);
+                for(int p=0; p < hand.size();p++){
+                    hand.get(p).draw(window);
+                }
+                for (Event event : window.pollEvents()) {
+                    if (event.type == Event.Type.CLOSED) {
+                        // the user pressed the close button
+                        window.close( );
+                    }
+                    if (event.type == Event.Type.MOUSE_BUTTON_PRESSED && playersTurn) {
+                        Audio.buttonClick(); // Runs method that makes click sound, on every button press within window
+
+                        for (int k = 0; k < hand.size(); k++) {
+                            if (Mouse.getPosition(window).x > hand.get(k).x && Mouse.getPosition(window).x < hand.get(k).x + hand.get(k).getWidth() && Mouse.getPosition(window).y > hand.get(k).y && Mouse.getPosition(window).y < hand.get(k).y + hand.get(k).getHeight()) {
+                                clicked = true;
+                                deck.addCard(hand.get(k));
+                            }
+                        }
+                    }
+                }
+                window.display();
+            }
+            hand.clear();
+        }
+
+        //game setup
+        Button moveButton = new Button("move.png",800,500,0);
+        buttons.add(moveButton);
+        deck.shuffle();
+        for(int i = 0; i<5;i++){
+            hand.add(deck.drawCard());
+            hand.get(i).setX(i*((int)hand.get(i).getWidth()+20));
+            hand.get(i).setY(screenHeight - (int)hand.get(i).getHeight());
+        }
 
         //
         // Main loop
@@ -185,7 +222,7 @@ public class Driver extends Audio
                 break;
             case 9: //Throwing Knife
                 Audio.poisonDart();
-                gameBoard.castBolt(1, Character.elementalType.NONE,false,false);
+                gameBoard.castBolt(2, Character.elementalType.NONE,false,false);
                 break;
             case 10: // Healing Rain
                 Audio.healingRain();

@@ -60,7 +60,11 @@ public class Character {
         }		
 
         if(hp<=0){
-            currentSquare.removeCharacter();
+            if (enemyType == 1){
+                enemyType = -1;
+            }
+            else
+                currentSquare.removeCharacter();
         }
     }		
 }

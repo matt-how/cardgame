@@ -62,7 +62,7 @@ public class Driver extends Audio
         //
         // Main loop
         //
-        while (window.isOpen( )) {
+        while (window.isOpen( )&& !gameBoard.gameOver) {
             // Clear the screen
             window.clear(Color.RED);
             window.draw(img);

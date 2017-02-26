@@ -5,7 +5,7 @@ import java.util.Random;
  * Created by Matt on 01/02/2017.
  */
 public class Board {
-
+    public boolean gameOver = false;
     private static int MOVESPEED = 1;
     private static int BOARDSIZE = 14;
     private boolean electricDagger = false;
@@ -30,6 +30,9 @@ public class Board {
                     squares[i].occupiedCharacter.elementalBoostsTimers[j]--;
                 }
                 squares[i].occupiedCharacter.stunnedTimer-=1;
+            }
+            if (squares[i].occupiedCharacter.enemyType == -1){
+                gameOver=true;
             }
         }
     }

@@ -37,6 +37,14 @@ public class Board {
         }
     }
 
+    public void doublePoison(){
+        for(int i = 0; i < BOARDSIZE; i++) {
+            if(squares[i].isOccupied&&squares[i].occupiedCharacter.getEnemyType()>1&&squares[i].occupiedCharacter.poisonStacks>0){
+                squares[i].occupiedCharacter.poisonStacks *= 2;
+            }
+        }
+    }
+
     public void setElementalBoosts(int amount, Character.elementalType element, int noOfTurns){
         squares[playerLocation].occupiedCharacter.elementalBoosts[element.ordinal()] = amount;
         squares[playerLocation].occupiedCharacter.elementalBoostsTimers[element.ordinal()] = noOfTurns;

@@ -144,8 +144,9 @@ public class Driver extends Audio
 
     private static void cardEffect(int cardID, Board gameBoard){
         switch (cardID){
-            case 0:
-                gameBoard.playerMove(-1);
+            case 0: //Empty card Thrash
+                gameBoard.damageSquare(1,1, Character.elementalType.NONE);
+                gameBoard.damageSquare(0,1, Character.elementalType.NONE);
                 break;
             case 1: // Sword Attack
                 Audio.sword();
@@ -201,11 +202,18 @@ public class Driver extends Audio
                 Audio.running();
                 gameBoard.playerMove(3);
                 break;
+            case 17: // Trap
+                Audio.sword();
+                gameBoard.setTrap(2);
+                break;
+            case 18: //Venomous Gel
+                gameBoard.doublePoison();
+                break;
             case 19: // Water Boost
                 Audio.waterBoost();
                 gameBoard.setElementalBoosts(3, Character.elementalType.WATER, 2);
                 break;
-            default: // Venomous Gel && Water Boost && Electric Dagger && Greed && Smokescreen && Trap
+            default: //Electric Dagger && Greed && Smokescreen && Trap
                 gameBoard.damageSquare(1,1,Character.elementalType.NONE);
                 break;
 

@@ -69,6 +69,7 @@ public class Driver extends Audio
                     if (event.type == Event.Type.CLOSED) {
                         // the user pressed the close button
                         window.close( );
+                        battlemusic.stop();
                     }
                     if (event.type == Event.Type.MOUSE_BUTTON_PRESSED && playersTurn) {
                         Audio.buttonClick(); // Runs method that makes click sound, on every button press within window
@@ -117,6 +118,7 @@ public class Driver extends Audio
                 if (event.type == Event.Type.CLOSED) {
                     // the user pressed the close button
                     window.close( );
+                    battlemusic.stop();
                 }
                 if(event.type == Event.Type.MOUSE_BUTTON_PRESSED && playersTurn){
                     Audio.buttonClick(); // Runs method that makes click sound, on every button press within window

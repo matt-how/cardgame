@@ -52,8 +52,10 @@ public class Board {
     }
 
     public void setTrap(int relativeLocation){
-        if(!squares[playerLocation+relativeLocation].isOccupied){
-            squares[playerLocation+relativeLocation]=new Square(squares[playerLocation+relativeLocation].x,250,5,10,relativeLocation+playerLocation, Character.elementalType.EARTH);
+        if(playerLocation+relativeLocation<BOARDSIZE) {
+            if (!squares[playerLocation + relativeLocation].isOccupied) {
+                squares[playerLocation + relativeLocation] = new Square(squares[playerLocation + relativeLocation].x, 250, 5, 10, relativeLocation + playerLocation, Character.elementalType.EARTH);
+            }
         }
     }
 

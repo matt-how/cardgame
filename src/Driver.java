@@ -28,7 +28,7 @@ public class Driver extends Audio
         //
         RenderWindow window = new RenderWindow( );
         window.create(new VideoMode(screenWidth, screenHeight),"Card Quest", WindowStyle.DEFAULT);
-        window.setFramerateLimit(30); // 60FPS master-race
+        window.setFramerateLimit(framerate); // 60FPS master-race
         boolean playersTurn = true;
         ArrayList<Button> buttons = new ArrayList<Button>();
         Board gameBoard = new Board();
@@ -146,7 +146,7 @@ public class Driver extends Audio
         switch (cardID){
             case 0: //Empty card Thrash
                 gameBoard.damageSquare(1,1, Character.elementalType.NONE);
-                gameBoard.damageSquare(0,1, Character.elementalType.NONE);
+                gameBoard.damageSquare(1,0, Character.elementalType.NONE);
                 break;
             case 1: // Sword Attack
                 Audio.sword();

@@ -5,10 +5,10 @@ import org.jsfml.graphics.RenderWindow;
  */
 public class Board {
 
-    public static int MOVESPEED = 1;
-    public static int BOARDSIZE = 14;
+    private static int MOVESPEED = 1;
+    private static int BOARDSIZE = 14;
 
-    int playerLocation;
+    private int playerLocation;
     Square[] squares = new Square[BOARDSIZE];
     public Board(){
         squares[0] = new Square(20,250,1,10,0,Character.elementalType.NONE);
@@ -100,9 +100,14 @@ public class Board {
             squares[playerLocation].moveContents(squares[0]);
             playerLocation = 0;
         }
-        else if(!squares[playerLocation+distance].isOccupied){
-            squares[playerLocation].moveContents(squares[playerLocation+distance]);
-            playerLocation+=distance;
+        else{
+            while(squares[playerLocation+distance].isOccupied&&distance>0){
+                distance--;
+            }
+            if(distance>0){
+                squares[playerLocation].moveContents(squares[playerLocation+distance]);
+                playerLocation+=distance;
+            }
         }
     }
 

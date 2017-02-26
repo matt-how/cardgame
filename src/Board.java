@@ -7,6 +7,7 @@ public class Board {
 
     private static int MOVESPEED = 1;
     private static int BOARDSIZE = 14;
+    private boolean electricDagger = false;
 
     private int playerLocation;
     Square[] squares = new Square[BOARDSIZE];
@@ -90,8 +91,17 @@ public class Board {
         if(squares[playerLocation].occupiedCharacter.elementalBoostsTimers[element.ordinal()]>0){
             amount+=squares[playerLocation].occupiedCharacter.elementalBoosts[element.ordinal()];
         }
-        if (playerLocation + relativeLocation > -1 && playerLocation + relativeLocation < BOARDSIZE)
+        if (playerLocation + relativeLocation > -1 && playerLocation + relativeLocation < BOARDSIZE) {
             squares[playerLocation + relativeLocation].damageSquare(amount, element);
+        }
+        if (electricDagger&&relativeLocation!=0){
+            stunCharacter(relativeLocation,2);
+            electricDagger=false;
+        }
+    }
+
+    public void setElectricDagger(){
+        electricDagger=true;
     }
 
     public void playerMove(){
@@ -146,7 +156,8 @@ public class Board {
                         squares[i].moveContents(squares[i - 1]);
                     }
                 }
-                damageSquare(squares[i].occupiedCharacter.poisonStacks,i-playerLocation, Character.elementalType.EARTH);
+                if (squares[i].occupiedCharacter.poisonStacks>0)
+                    damageSquare(squares[i].occupiedCharacter.poisonStacks,i-playerLocation, Character.elementalType.EARTH);
             }
 
 

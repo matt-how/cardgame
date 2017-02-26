@@ -164,6 +164,9 @@ public class Driver extends Audio
                 Audio.electricBoost();
                 gameBoard.setElementalBoosts(3, Character.elementalType.ELECTRIC, 2);
                 break;
+            case 5: //Electric Dagger
+                gameBoard.setElectricDagger();
+                break;
             case 6: // Fire Boost
                 Audio.fireball2();
                 gameBoard.setElementalBoosts(3, Character.elementalType.FIRE, 2);
@@ -179,6 +182,10 @@ public class Driver extends Audio
             case 8: // Fireball
                 Audio.fireball2();
                 gameBoard.castBolt(2,Character.elementalType.FIRE,false,false);
+                break;
+            case 9: //Throwing Knife
+                Audio.poisonDart();
+                gameBoard.castBolt(1, Character.elementalType.NONE,false,false);
                 break;
             case 10: // Healing Rain
                 Audio.healingRain();
@@ -198,9 +205,18 @@ public class Driver extends Audio
                 Audio.lightning();
                 gameBoard.castBolt(1, Character.elementalType.ELECTRIC,true,false);
                 break;
+            case 14: //Fire Punch
+                Audio.fireball();
+                gameBoard.damageSquare(3,1, Character.elementalType.FIRE);
+                break;
             case 15: // Shoes
                 Audio.running();
                 gameBoard.playerMove(3);
+                break;
+            case 16: //Electric Punch
+                Audio.lightning();
+                gameBoard.damageSquare(2,1, Character.elementalType.ELECTRIC);
+                gameBoard.stunCharacter(1,1);
                 break;
             case 17: // Trap
                 Audio.sword();
@@ -213,7 +229,7 @@ public class Driver extends Audio
                 Audio.waterBoost();
                 gameBoard.setElementalBoosts(3, Character.elementalType.WATER, 2);
                 break;
-            default: //Electric Dagger && Greed && Smokescreen && Trap
+            default: //Electric Dagger
                 gameBoard.damageSquare(1,1,Character.elementalType.NONE);
                 break;
 

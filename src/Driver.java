@@ -68,7 +68,9 @@ public class Driver extends Audio
                 for (Event event : window.pollEvents()) {
                     if (event.type == Event.Type.CLOSED) {
                         // the user pressed the close button
-                        window.close( );
+                        clicked = true;
+                        i=31;
+                        window.close();
                         battlemusic.stop();
                     }
                     if (event.type == Event.Type.MOUSE_BUTTON_PRESSED && playersTurn) {
@@ -348,6 +350,7 @@ public class Driver extends Audio
             }
 
         }
+
     }
 
     private static void optionsMenu(){

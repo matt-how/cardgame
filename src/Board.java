@@ -1,4 +1,5 @@
 import org.jsfml.graphics.RenderWindow;
+import java.util.Random;
 
 /**
  * Created by Matt on 01/02/2017.
@@ -8,17 +9,12 @@ public class Board {
     private static int MOVESPEED = 1;
     private static int BOARDSIZE = 14;
     private boolean electricDagger = false;
-
+    private int level = 0;
     private int playerLocation;
     Square[] squares = new Square[BOARDSIZE];
+
     public Board(){
-        squares[0] = new Square(20,250,1,10,0,Character.elementalType.NONE);
-        for(int i = 1; i<BOARDSIZE; i++) {
-            squares[i] = new Square((i*70)+20,250,0,0, i,Character.elementalType.NONE);
-        }
-        squares[11] = new Square(11*70+20,250,2,4,11,Character.elementalType.EARTH);
-        squares[13] = new Square(13*70+20,250,2,4,13,Character.elementalType.EARTH);
-        playerLocation=0;
+        setupLevel();
     }
 
     public void draw(RenderWindow w){
@@ -106,10 +102,22 @@ public class Board {
         electricDagger=true;
     }
 
+    public void setupLevel(){
+        Random rand = new Random();
+        level += 1;
+        squares[0] = new Square(20,250,1,10,0,Character.elementalType.NONE);
+        for(int i = 1; i<BOARDSIZE; i++) {
+            squares[i] = new Square((i*70)+20,250,0,0, i,Character.elementalType.NONE);
+        }
+        squares[11] = new Square(11*70+20,250,2,4,11,Character.elementalType.values()[rand.nextInt(3)]);
+        squares[13] = new Square(13*70+20,250,2,4,13,Character.elementalType.values()[rand.nextInt(3)]);
+        playerLocation=0;
+
+    }
+
     public void playerMove(){
        if ((playerLocation + MOVESPEED)>=BOARDSIZE) {
-            /*squares[playerLocation].moveContents(squares[BOARDSIZE-1]);
-            playerLocation = BOARDSIZE - 1;*/ //unnecesary in movespeed of 1 and moving a square to itself breaks the square
+            setupLevel();
         }
         else if(squares[playerLocation+MOVESPEED].isOccupied==false){
             squares[playerLocation].moveContents(squares[playerLocation+MOVESPEED]);

@@ -240,7 +240,6 @@ public class Driver extends Audio
             case 12: // Poison Dart
                 Audio.poisonDart();
                 gameBoard.castBolt(1, Character.elementalType.EARTH,false,true);
-                gameBoard.castBolt(1, Character.elementalType.EARTH,false,false);
                 break;
             case 13: // Shock
                 Audio.lightning();
@@ -250,9 +249,9 @@ public class Driver extends Audio
                 Audio.fireball();
                 gameBoard.damageSquare(3,1, Character.elementalType.FIRE);
                 break;
-            case 15: // Shoes
+            case 15: // Backstep
                 Audio.running();
-                gameBoard.playerMove(3);
+                gameBoard.playerMove(-2);
                 break;
             case 16: //Electric Punch
                 Audio.lightning();

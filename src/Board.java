@@ -112,8 +112,8 @@ public class Board {
         for(int i = 1; i<BOARDSIZE; i++) {
             squares[i] = new Square((i*70)+20,250,0,0, i,Character.elementalType.NONE);
         }
-        squares[11] = new Square(11*70+20,250,2,4,11,Character.elementalType.values()[rand.nextInt(3)]);
-        squares[13] = new Square(13*70+20,250,2,4,13,Character.elementalType.values()[rand.nextInt(3)]);
+        squares[11] = new Square(11*70+20,250,2,4+level,11,Character.elementalType.values()[rand.nextInt(3)]);
+        squares[13] = new Square(13*70+20,250,2,4+level,13,Character.elementalType.values()[rand.nextInt(3)]);
         playerLocation=0;
 
     }
@@ -122,7 +122,7 @@ public class Board {
        if ((playerLocation + MOVESPEED)>=BOARDSIZE) {
             setupLevel();
         }
-        else if(squares[playerLocation+MOVESPEED].isOccupied==false){
+        else if(!squares[playerLocation+MOVESPEED].isOccupied){
             squares[playerLocation].moveContents(squares[playerLocation+MOVESPEED]);
             playerLocation+=MOVESPEED;
         }
@@ -138,6 +138,10 @@ public class Board {
             squares[playerLocation].moveContents(squares[0]);
             playerLocation = 0;
         }
+        else if(distance<0){
+            squares[playerLocation].moveContents(squares[playerLocation+distance]);
+            playerLocation+=distance;
+        }
         else{
             for(i = 1; i <= distance;i++){
                 if(squares[playerLocation+i].isOccupied)
@@ -150,6 +154,8 @@ public class Board {
 
     public void enemyTurn(){
         for(int i = 1; i<BOARDSIZE; i++) {
+            if (squares[i].occupiedCharacter.poisonStacks>0)
+                damageSquare(squares[i].occupiedCharacter.poisonStacks,i-playerLocation, Character.elementalType.NONE);
             if ((squares[i].isOccupied) &&squares[i].occupiedCharacter.enemyType>1&&squares[i].occupiedCharacter.enemyType<6){
                 if(squares[i].occupiedCharacter.stunnedTimer<=0){
                     if(squares[i-1].isOccupied){
@@ -169,8 +175,6 @@ public class Board {
                         squares[i].moveContents(squares[i - 1]);
                     }
                 }
-                if (squares[i].occupiedCharacter.poisonStacks>0)
-                    damageSquare(squares[i].occupiedCharacter.poisonStacks,i-playerLocation, Character.elementalType.EARTH);
             }
 
 

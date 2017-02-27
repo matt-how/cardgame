@@ -28,7 +28,7 @@ public class Driver extends Audio
         //
         RenderWindow window = new RenderWindow( );
         window.create(new VideoMode(screenWidth, screenHeight),"Card Quest", WindowStyle.DEFAULT);
-        window.setFramerateLimit(framerate); // 60FPS master-race
+        window.setFramerateLimit(framerate); // framerate configured in options
         boolean playersTurn = true;
         ArrayList<Button> buttons = new ArrayList<Button>();
         Board gameBoard = new Board();
@@ -49,8 +49,6 @@ public class Driver extends Audio
 
         //deck setup
         boolean clicked;
-
-
 
         for (int i=0;i<30;i++) {
             clicked = false;
@@ -76,7 +74,7 @@ public class Driver extends Audio
                     if (event.type == Event.Type.MOUSE_BUTTON_PRESSED && playersTurn) {
                         Audio.buttonClick(); // Runs method that makes click sound, on every button press within window
 
-                        for (int k = 0; k < hand.size(); k++) {
+                        for (int k = 0; k < hand.size(); k++) { //select the card the player clicked and add it to the deck
                             if (Mouse.getPosition(window).x > hand.get(k).x && Mouse.getPosition(window).x < hand.get(k).x + hand.get(k).getWidth() && Mouse.getPosition(window).y > hand.get(k).y && Mouse.getPosition(window).y < hand.get(k).y + hand.get(k).getHeight()) {
                                 clicked = true;
                                 deck.addCard(hand.get(k));

@@ -14,7 +14,7 @@ public class Square extends SprActor{
     Character occupiedCharacter;
 	HealthUI healthbar;
 
-    public Square(int x, int y, int type, int hp, int squareNumber, Character.elementalType elementType){
+    public Square(int x, int y, int type, int hp, int squareNumber, Character.elementalType elementType){ //constructor for square
         isOccupied=false;
         occupiedCharacter = new Character(0,0,Character.elementalType.NONE);
         if (type > 0) {
@@ -53,7 +53,7 @@ public class Square extends SprActor{
         img.setPosition(new Vector2f(x, y));
     }
 
-    public void updateTexture(){
+    public void updateTexture(){ //update the picture to match the occupied character type
         if (!isOccupied) {
             try {
                 imgTexture.loadFromFile(Paths.get("square0.png"));
@@ -75,18 +75,18 @@ public class Square extends SprActor{
         img.setTexture(imgTexture);
     }
 
-    public void removeCharacter(){
+    public void removeCharacter(){ //remove the current occupied character
         isOccupied = false;
         occupiedCharacter = new Character(0,0,Character.elementalType.NONE);
         updateTexture();
     }
 
-    public void damageSquare(int damage,Character.elementalType element){
+    public void damageSquare(int damage,Character.elementalType element){ //damage the character
         occupiedCharacter.damage(damage,element,this);
         healthbar = new HealthUI(occupiedCharacter.getHP(), occupiedCharacter.getMaxHP(), occupiedCharacter.getElement(), x, y);
     }
 
-    public void moveContents(Square destination){
+    public void moveContents(Square destination){//move character onto given square
         if (destination!=this){
             destination.occupiedCharacter = this.occupiedCharacter;
             destination.isOccupied=true;
@@ -95,7 +95,7 @@ public class Square extends SprActor{
         }
     }
 
-    void draw(RenderWindow w) {
+    void draw(RenderWindow w) { //method to draw character and healthbar
         w.draw(img);
 		if (isOccupied){
 				healthbar.draw(w);

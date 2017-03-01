@@ -52,7 +52,7 @@ public class Driver extends Audio
 
         for (int i=0;i<30;i++) {
             clicked = false;
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 3; j++) { //display card options on screen
                 hand.add(new Card(rand.nextInt(19) + 1));
                 hand.get(j).setX(j * ((int) hand.get(j).getWidth() + 70)+(screenWidth/5));
                 hand.get(j).setY((screenHeight / 2)-((int) hand.get(j).getHeight()/2));
@@ -66,7 +66,7 @@ public class Driver extends Audio
                 for (Event event : window.pollEvents()) {
                     if (event.type == Event.Type.CLOSED) {
                         // the user pressed the close button
-                        clicked = true;
+                        clicked = true; //exit loops
                         i=31;
                         window.close();
                         battlemusic.stop();
@@ -126,17 +126,17 @@ public class Driver extends Audio
                         if(Mouse.getPosition(window).x > buttons.get(i).x && Mouse.getPosition(window).x < buttons.get(i).x+buttons.get(i).getWidth() && Mouse.getPosition(window).y > buttons.get(i).y && Mouse.getPosition(window).y < buttons.get(i).y+buttons.get(i).getHeight()) {
                             switch (buttons.get(i).getButtonID()){
                                 case 0:
-                                    gameBoard.playerMove();
+                                    gameBoard.playerMove(); //if move button pressed
                             }
-                            playersTurn = false;
+                            playersTurn = false; //move the player
                         }
                     }
                     for(int i = 0; i < hand.size(); i++) {
                         if (Mouse.getPosition(window).x > hand.get(i).x && Mouse.getPosition(window).x < hand.get(i).x + hand.get(i).getWidth() && Mouse.getPosition(window).y > hand.get(i).y && Mouse.getPosition(window).y < hand.get(i).y + hand.get(i).getHeight()) {
-                            cardEffect(hand.get(i).getID(),gameBoard);
-                            hand.remove(i);
+                            cardEffect(hand.get(i).getID(),gameBoard); //if card is clicked do card effect
+                            hand.remove(i); //replace card
                             hand.add(deck.drawCard());
-                            for(int j = 0; j<5;j++){
+                            for(int j = 0; j<5;j++){ //update hand graphics
                                 hand.get(j).setX(j*((int)hand.get(j).getWidth()+20));
                                 hand.get(j).setY(screenHeight - (int)hand.get(j).getHeight());
                             }
@@ -175,12 +175,12 @@ public class Driver extends Audio
             System.err.println("Err: File not found");
         }
 
-
+        //load main menu
         mainMenu();
     }
 
     /* All of the audio.(methods) statements below, play each respective sound for each case, within the audio class */
-
+    //different card effects for during gameplay
     private static void cardEffect(int cardID, Board gameBoard){
         switch (cardID){
             case 0: //Empty card Thrash

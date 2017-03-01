@@ -10,11 +10,7 @@ public class Deck {
 
     ArrayList<Card> cards = new ArrayList<Card>();
 
-    public Deck(){
-        setupTestDeck();
-    }
-
-    public void shuffle(){
+    public void shuffle(){ //Yates shuffle alogrithm
         int j;
         for(int i = DECKSIZE-1; i>0;i--){
             j = (int )(Math.random() * i);
@@ -22,19 +18,12 @@ public class Deck {
         }
     }
 
-    public void setupTestDeck()
-    {
-        for(int i = 0; i < DECKSIZE; i++){
-            cards.add(new Card((i%19)+1));
-        }
-    }
-
     public void addCard(Card i){
         cards.add(i);
-    }
+    } //add card to decklist
 
 
-    public Card drawCard() {
+    public Card drawCard() { //return the top card and remove it
         if(cards.size()==0){
             return(new Card(0));
         }

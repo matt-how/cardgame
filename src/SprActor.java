@@ -17,12 +17,12 @@ public abstract class SprActor extends Actor {
         return(img.getGlobalBounds().height);
     }
 
-    public void setX(int x){
+    public void setX(int x){ //changes x position on screen so manipulation is easier from Driver
         this.x = x;
         img.setPosition(new Vector2f(x, y));
     }
 
-    public void setY(int y){
+    public void setY(int y){ //changes y position on screen so manipulation is easier from Driver
         this.y = y;
         img.setPosition(new Vector2f(x, y));
     }

@@ -16,7 +16,9 @@ public class HealthUI {
 
 	public HealthUI(int hp, int maxHP, Character.elementalType ourElement, int x, int y) {//relevant carried over info
 
-		healthDif = 60 / maxHP; //finds value for scaling
+		if(hp!=0){
+			healthDif = 60 / maxHP; //finds value for scaling
+		}
 
 		healthBar = new RectangleShape(new Vector2f((hp*healthDif), 10));//makes healthbar
 		healthBar.setFillColor(Color.GREEN);

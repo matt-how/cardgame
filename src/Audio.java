@@ -11,11 +11,18 @@ import static java.lang.Boolean.TRUE;
  */
 
 public class Audio {
+	
+	//Creating instantiations of the sound buffers and sounds we are going to use
+	
     public static SoundBuffer soundBuffer = new SoundBuffer();
     public static Sound sound = new Sound();
     public static void main(){
 
     }
+	
+	/*
+	*	The two methods below are called by driver to mute and set volume in the options menu
+	*/	
 
     public static void volumeOn()
     {
@@ -27,6 +34,15 @@ public class Audio {
         sound.setVolume(0);
     }
 
+	/*
+	*	The methods below all play sounds for each fx within the game,
+	*	they work by creating a sound buffer that loads the wav file needed
+	*	for that particular sound effect in to memory, ready for a sound
+	*	method to play them
+	*/
+	
+	
+	/* Button click sound effect */
     public static void buttonClick()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -39,6 +55,7 @@ public class Audio {
         sound.play();
     }
 
+	/* sword sound effect */
     public static void sword()
     {
         try
@@ -51,6 +68,7 @@ public class Audio {
         sound.play();
     }
 
+	/* Ice attack sound effect */
     public static void blizzard()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -63,7 +81,8 @@ public class Audio {
         sound.setBuffer(soundBuffer);
         sound.play();
     }
-
+	
+	/* Fireball 1 sound effect */
     public static void fireball()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -76,7 +95,8 @@ public class Audio {
         sound.setBuffer(soundBuffer);
         sound.play();
     }
-
+	
+	/* Fireball 2 sound effect */
     public static void fireball2()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -90,6 +110,7 @@ public class Audio {
         sound.play();
     }
 
+	/* Electric buff sound effect */
     public static void electricBoost()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -103,6 +124,7 @@ public class Audio {
         sound.play();
     }
 
+	/* Earthtype boost sound effect */
     public static void earthBoost()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -116,6 +138,7 @@ public class Audio {
         sound.play();
     }
 
+	/* Healing rain sound effect */
     public static void healingRain()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -129,6 +152,7 @@ public class Audio {
         sound.play();
     }
 
+	/* Poison dart sound effect */
     public static void poisonDart()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -142,6 +166,7 @@ public class Audio {
         sound.play();
     }
 
+	/* Ice bolt sound effect */
     public static void iceBolt()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -154,6 +179,8 @@ public class Audio {
         sound.setBuffer(soundBuffer);
         sound.play();
     }
+	
+	/* Lightning attack sound effect */
     public static void lightning()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -167,6 +194,7 @@ public class Audio {
         sound.play();
     }
 
+	/* Running buff sound effect */
     public static void running()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
@@ -180,6 +208,7 @@ public class Audio {
         sound.play();
     }
 
+	/* Water type buff sound effect */
     public static void waterBoost()
     {
         SoundBuffer soundBuffer = new SoundBuffer();
